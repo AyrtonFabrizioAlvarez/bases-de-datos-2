@@ -114,8 +114,10 @@ public class ToursServiceImpl implements ToursService {
     public void assignDriverByUsername(String username, Long idRoute) throws ToursException{
         Route route = routeRepo.findById(idRoute).orElseThrow(() -> new ToursException("Ruta no encontrado"));
         DriverUser driver = userRepo.findDriverByUserName(username).orElseThrow(() -> new ToursException("Driver no encontrado"));
+        // aca establezco bidireccionalidad
         route.addDriver(driver);
         driver.addRoute(route);
+        // CONSULTAR QUE PASA CON ESTO, PORQUE NO TENGO SETEADA LA PERSISTENCIA POR ALCANCE (CASCADA)
         routeRepo.update(route);
     }
     @Transactional
@@ -176,19 +178,17 @@ public class ToursServiceImpl implements ToursService {
     }
     @Transactional
     public ItemService addItemToPurchase(Service service, int quantity, Purchase purchase) throws ToursException{
-        Purchase managed_purchase = purchaseRepo.findById(purchase.getId()).get();
         ItemService itemService = new ItemService(quantity);
         // establezco relaciones bidireccionales
-        itemService.setPurchase(managed_purchase);
+        itemService.setPurchase(purchase);
+        purchase.addItemService(itemService);
         itemService.setService(service);
         service.addItemService(itemService);
-        managed_purchase.addItemService(itemService);
         // calculo nuevo precio
-        float old_price = managed_purchase.getTotalPrice();
+        float old_price = purchase.getTotalPrice();
         float new_amount = service.getPrice() * quantity;
-        managed_purchase.setTotalPrice(old_price + new_amount);
-        // esta chanchada me pasa por no tener un repo de itemservice y por no manejar la session aca
-        this.sessionFactory.getCurrentSession().flush();
+        purchase.setTotalPrice(old_price + new_amount);
+        purchaseRepo.save(purchase);
         return itemService;
     }
     @Transactional

@@ -38,7 +38,7 @@ public class DBInitializer {
         Service service4 = this.toursService.addServiceToSupplier("Architectural Expedition Book", 25, "Most famous architectures with details", supplier4);
         Service service5 = this.toursService.addServiceToSupplier("Historical City Tour e-book", 40, "Learn about the city's history", supplier2);
         Service service6 = this.toursService.addServiceToSupplier("souvenir t-shirt", 10, "I love Buenos Aires t-shirt", supplier1);
-        Service service7 = this.toursService.addServiceToSupplier("souvenir t-shirt", 10, "I love Argentina t-shirt", supplier1);
+        Service service7 = this.toursService.addServiceToSupplier("souvenir t-shirt2", 10, "I love Argentina t-shirt", supplier1);
         Service service8 = this.toursService.addServiceToSupplier("souvenir photograph", 5, "Souvenir photo at tourist spot", supplier3);
         Service service9 = this.toursService.addServiceToSupplier("souvenir retrato", 5, "Another Souvenir", supplier3);
         Service service10 = this.toursService.addServiceToSupplier("souvenir retrato 2", 5, "Another Souvenir 2", supplier3);

@@ -10,7 +10,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.annotation.Transactional;
 import unlp.info.bd2.config.AppConfig;
-import unlp.info.bd2.config.SpringDataConfiguration;
 import unlp.info.bd2.model.*;
 import unlp.info.bd2.services.ToursService;
 import unlp.info.bd2.utils.DBInitializer;
@@ -28,7 +27,6 @@ import org.junit.Assert;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@ContextConfiguration(classes = {SpringDataConfiguration.class, AppConfig.class, DBInitializer.class}, loader = AnnotationConfigContextLoader.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Transactional
 @Rollback(true)
@@ -121,7 +119,7 @@ public class ToursQuerysTests {
 
     @Test
     void getRoutesNotSellTest() throws ToursException {
-        List<Route> routesNotSell = this.service.getRoutesNotSell();
+        List<Route> routesNotSell = this.service.getRoutsNotSell();
         assertEquals(1, routesNotSell.size());
         this.assertListEquality(routesNotSell.stream().map(Route::getName).collect(Collectors.toList()), List.of("Ruta vacia"));
     }

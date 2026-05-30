@@ -159,6 +159,7 @@ class ToursApplicationTests {
 		assertTrue(optionalRoute.isPresent());
 		Route route = optionalRoute.get();
 		assertEquals(2, route.getDriverList().size());
+		assertEquals(1, driverUser1.getRoutes().size());
 		assertEquals(1, route.getTourGuideList().size());
 		assertEquals("userG1", route.getTourGuideList().get(0).getUsername());
 
